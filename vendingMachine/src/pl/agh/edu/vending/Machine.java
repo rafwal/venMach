@@ -16,7 +16,7 @@ public class Machine {
 		inRun = true;
 		while(inRun){
 			showMoneyInCacheAndMenu();			
-			int request = inputPanel.getRequest();			
+			int request = inputPanel.getRequestAsClient();			
 			processRequestAndTakeAction(request);
 		}
 	}
