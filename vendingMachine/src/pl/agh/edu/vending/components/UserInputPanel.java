@@ -10,7 +10,7 @@ public class UserInputPanel implements UserInput{
 	
 	
 	@Override
-	public  int getRequest(){
+	public  int getRequestAsClient(){
 		String choice = getChoice();
 		int request = interprateChoice(choice);
 		return request;
@@ -93,5 +93,7 @@ public class UserInputPanel implements UserInput{
 	private boolean isMoneyValidate(int money){
 		return money>0;
 	}
+
+
 	
 }
