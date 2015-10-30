@@ -13,7 +13,7 @@ public class MachineCashier implements Cashier{
 	}
 
 	@Override
-	public int getMoneyInCache() {
+	public int getMoneyAmountInCache() {
 		return cache;
 	}
 
@@ -24,18 +24,10 @@ public class MachineCashier implements Cashier{
 		return tmp;
 	}
 
-	@Override
-	public int purchaseAndGiveOutChange(int price) {
-		passMoneyToDeposit(price);
-		int change = cache;
-		cache = 0;
-		return change;
-	}
 	
-
-	private void passMoneyToDeposit(int moneyAmount){
+	@Override
+	public void passMoneyToDeposit(int moneyAmount){
 		deposit.addMoney(moneyAmount);
 		cache -= moneyAmount;
 	}
-	
 }

@@ -29,9 +29,8 @@ public class MachineStorage implements Storage{
 	}
 
 	@Override
-	public String giveOutProduct(int key) {
+	public void giveOutProduct(int key) {
 		productArray[key].setQuantity(productArray[key].getQuantity()-1);
-		return productArray[key].getName();
 	}
 
 	@Override
@@ -40,7 +39,7 @@ public class MachineStorage implements Storage{
 	}
 
 	@Override
-	public String listAllProductsAndQuantity() {
+	public String listOfAllProductsAndQuantity() {
 		StringBuilder out = new StringBuilder(); 
 		for (int i=0; i<productArray.length; i++)
 			out.append(productArray[i].getName() +
@@ -49,6 +48,11 @@ public class MachineStorage implements Storage{
 				"; CODE: " + i + "\n");
 		
 		return out.toString();
+	}
+
+	@Override
+	public String getProductName(int key) {
+		return productArray[key].getName();
 	}
 
 }

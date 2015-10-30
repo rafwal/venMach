@@ -9,10 +9,11 @@ public class Machine {
 	Display display = new Display();
 	UserInputPanel inputPanel = new UserInputPanel();
 	
-	boolean inRun = true;
+	boolean inRun = false;
 	
 	
-	public void run(){		
+	public void run(){
+		inRun = true;
 		while(inRun){
 			showMoneyInCacheAndMenu();			
 			int request = inputPanel.getRequest();			
@@ -22,7 +23,7 @@ public class Machine {
 	
 	private void showMoneyInCacheAndMenu(){
 		display.showInformation("");
-		display.showInformation("Money in cache: " + cashier.getMoneyInCache());			
+		display.showInformation("Money in cache: " + cashier.getMoneyAmountInCache());			
 		display.showInformation("MAIN MENU\n" + 
 				"Toss in money - press 0\n" + 
 				"Get the money back - press 1\n" +
@@ -53,7 +54,7 @@ public class Machine {
 				break;
 			}
 			case UserInputPanel.LIST_PRODUCTS:{
-				display.showInformation(storage.listAllProductsAndQuantity());
+				display.showInformation(storage.listOfAllProductsAndQuantity());
 				break;
 			}					
 			case UserInputPanel.EXIT:{
@@ -82,18 +83,41 @@ public class Machine {
 		if (code == UserInputPanel.INVALID_INPUT)
 			display.showInformation("Wrong code! Try again!");
 		else{
-			buyProductAndDisplayInfo(code);
+			tryToBuyProductAndDisplayInfo(code);
 		}
 	}
 	
-	private void buyProductAndDisplayInfo(int code){
+	private void tryToBuyProductAndDisplayInfo(int code){
+		if (!storage.isAvailable(code)){
+			display.showInformation("Product is unavailable!");
+			return;
+		}
+		
 		int productPrice = storage.getProductPrice(code);
-		int change = cashier.purchaseAndGiveOutChange(productPrice);
-		String productName = storage.giveOutProduct(code);
-		display.showInformation("You bought " + productName + "\nYour change: " + change);
+		if (!isEnoughMoneyInCache(productPrice)){
+			display.showInformation("You didn't tossed in enough money");
+			return;
+		}
+		
+		
+		cashier.passMoneyToDeposit(productPrice);
+		storage.giveOutProduct(code);
+		
+		int change=0;
+		if (cashier.getMoneyAmountInCache()>0){
+			change = cashier.giveOutMoneyInCache();
+		}
+		display.showInformation("You bought " + 
+								storage.getProductName(code)
+								+ "\nYour change: " + change);
+	}
+	
+	private boolean isEnoughMoneyInCache(int moneyAmount){
+		return moneyAmount<=cashier.getMoneyAmountInCache();
 	}
 	
 	private void sendRequestToCloseSystem(){
 		inRun = false;
 	}
+	
 }

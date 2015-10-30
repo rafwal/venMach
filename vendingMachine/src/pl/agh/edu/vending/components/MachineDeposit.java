@@ -19,11 +19,6 @@ public class MachineDeposit implements Deposit{
 	}
 
 	@Override
-	public boolean isEnoughMoney(int moneyAmount) {
-		return this.moneyAmount>moneyAmount;
-	}
-
-	@Override
 	public int getMoneyAmount() {
 		return this.moneyAmount;
 	}
