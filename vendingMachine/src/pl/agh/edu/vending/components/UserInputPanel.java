@@ -5,13 +5,6 @@ import java.util.Scanner;
 import pl.agh.edu.vending.interfaces.*;
 
 public class UserInputPanel implements UserInput{
-
-	public final static int TOSS_IN_MONEY = -1;
-	public final static int GIVE_OUT_MONEY = -2;
-	public final static int ENTER_THE_CODE = -3;
-	public final static int LIST_PRODUCTS = -4;
-	public final static int INVALID_INPUT = -5;
-	public final static int EXIT = -6;
 	
 	Scanner userInput = new Scanner(System.in);
 	
@@ -78,7 +71,7 @@ public class UserInputPanel implements UserInput{
 	}
 
 	
-	
+	@Override
 	public int getMoneyAmount(){
 		int moneyAmount = getMoneyAmountAndProcess();
 		userInput.nextLine();
