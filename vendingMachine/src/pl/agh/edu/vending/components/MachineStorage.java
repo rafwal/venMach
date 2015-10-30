@@ -6,6 +6,8 @@ import pl.agh.edu.vending.interfaces.*;
 public class MachineStorage implements Storage{
 
 	public static final int PRODUCTS_QUANTITY = 15;
+	public static final int MAX_QUANTITY_OF_ONE_PRODUCT = 10;
+	
 	Product [] productArray = new Product[PRODUCTS_QUANTITY];
 	
 	public MachineStorage(){
@@ -15,10 +17,13 @@ public class MachineStorage implements Storage{
 	private void initializeProducts(){
 		
 		productArray[0] = new Product("Black Coffee", 300, 5);
-		productArray[1] = new Product("White Coffee", 300, 5);
+		productArray[1] = new Product("White Coffee", 300, 10);
 		productArray[2] = new Product("Hot Water", 100, 5);
-		productArray[3] = new Product("Tea with lemon", 300, 5);
+		productArray[3] = new Product("Tea with lemon", 300, 10);
 		productArray[4] = new Product("Chocolate", 300, 5);
+		
+		productArray[10] = new Product("Green Coffee", 600, 5);
+		productArray[13] = new Product("Empty Cup", 30, 5);
 	}
 	
 

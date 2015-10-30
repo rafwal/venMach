@@ -21,6 +21,8 @@ public class Machine {
 		}
 	}
 	
+	
+	
 	private void showMoneyInCacheAndMenu(){
 		display.showInformation("");
 		display.showInformation("Money in cache: " + cashier.getMoneyAmountInCache());			
@@ -50,7 +52,7 @@ public class Machine {
 			
 			case UserInputPanel.ENTER_THE_CODE:{
 				display.showInformation("Type products code: ");
-				getProductCodeFromClient();
+				getProductCodeFromClientAndProcess();
 				break;
 			}
 			case UserInputPanel.LIST_PRODUCTS:{
@@ -74,15 +76,19 @@ public class Machine {
 		if (moneyAmount == UserInputPanel.INVALID_INPUT)
 			display.showInformation("Wrong amount of money! Try again!");
 		else{
-			int moneySum = cashier.getMoneyAmountInCache() + moneyAmount;
-			if (moneySum <= MachineCashier.CACHE_CAPACITY)
-				cashier.addMoneyToCache(moneyAmount);
-			else
-				display.showInformation("You can toss in max 10zl (1000gr)");
+			tryToTossInMoneyAndShowInfo(moneyAmount);
 		}
 	}
 	
-	private void getProductCodeFromClient(){
+	private void tryToTossInMoneyAndShowInfo(int moneyAmount){
+		int moneySum = cashier.getMoneyAmountInCache() + moneyAmount;
+		if (moneySum <= MachineCashier.CACHE_CAPACITY)
+			cashier.addMoneyToCache(moneyAmount);
+		else
+			display.showInformation("You can toss in max 10zl (1000gr)");
+	}
+	
+	private void getProductCodeFromClientAndProcess(){
 		int code = inputPanel.getProductCode();
 		
 		if (code == UserInputPanel.INVALID_INPUT)
