@@ -4,6 +4,7 @@ import pl.agh.edu.vending.interfaces.*;
 
 public class MachineCashier implements Cashier{
 
+	public static final int CACHE_CAPACITY = 1000;
 	private int cache = 0;
 	private MachineDeposit deposit = new MachineDeposit();
 	
@@ -23,11 +24,10 @@ public class MachineCashier implements Cashier{
 		cache = 0;
 		return tmp;
 	}
-
 	
 	@Override
 	public void passMoneyToDeposit(int moneyAmount){
 		deposit.addMoney(moneyAmount);
 		cache -= moneyAmount;
-	}
+	}	
 }

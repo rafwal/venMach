@@ -51,19 +51,12 @@ public class UserInputPanel implements UserInput{
 		int code = userInput.nextInt();
 		return code;
 	}
-	
-	private boolean isCodeValidate(int code){
-		return (code>=0 && code <=MachineStorage.PRODUCTS_QUANTITY);
-	}
+
 	
 	private int getCodeAndProcess(){
 		try{
 			int code = getUserCode();
-			
-			if (isCodeValidate(code))
-				return code;
-			else
-				return INVALID_INPUT;
+			return code;
 			
 		}catch(Exception e){
 			return INVALID_INPUT;

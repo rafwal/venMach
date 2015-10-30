@@ -73,8 +73,13 @@ public class Machine {
 		int moneyAmount = inputPanel.getMoneyAmount();					
 		if (moneyAmount == UserInputPanel.INVALID_INPUT)
 			display.showInformation("Wrong amount of money! Try again!");
-		else
-			cashier.addMoneyToCache(moneyAmount);				
+		else{
+			int moneySum = cashier.getMoneyAmountInCache() + moneyAmount;
+			if (moneySum <= MachineCashier.CACHE_CAPACITY)
+				cashier.addMoneyToCache(moneyAmount);
+			else
+				display.showInformation("You can toss in max 10zl (1000gr)");
+		}
 	}
 	
 	private void getProductCodeFromClient(){
@@ -89,7 +94,7 @@ public class Machine {
 	
 	private void tryToBuyProductAndDisplayInfo(int code){
 		if (!storage.isAvailable(code)){
-			display.showInformation("Product is unavailable!");
+			display.showInformation("Product is unavailable or does not exist!");
 			return;
 		}
 		
